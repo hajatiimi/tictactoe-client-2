@@ -1,16 +1,16 @@
+#!/usr/bin/python3
+
 import socket
 from game import Game
 
-PORT = 8282
-        
 def connect(host, port):
   client_socket = socket.socket()
   client_socket.connect((host, port))
   return client_socket
 
 class Client():
-  def __init__(self):
-    self.socket = connect("localhost", PORT)
+  def __init__(self, host, port):
+    self.socket = connect(host, port)
     self.message_log = []
     self.own_id = ""
 
@@ -45,7 +45,7 @@ class Client():
 
     self.print_messages
 
-  def join_successful(self, id): 
+  def join_successful(self, id):
     self.own_id = id
 
     print("Player id: ", id)
@@ -78,7 +78,7 @@ class Client():
 
   def loop(self):
     self.game_on = True
-    
+
     print("Starting game loop")
 
     while self.game_on:
@@ -94,5 +94,13 @@ class Client():
     print("Game loop ended")
 
 if __name__ == '__main__':
-    client = Client()
-    client.start_game()
+  import sys
+
+  if len(sys.argv) != 3:
+    print("Usage: {} <server-host> <server-port>".format(sys.argv[0]))
+    sys.exit(1)
+
+  host, port = sys.argv[1], int(sys.argv[2])
+
+  client = Client(host, port)
+  client.start_game()
