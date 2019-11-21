@@ -63,7 +63,7 @@ class Client():
 
   def first_turn(self):
     next_turn_number, row, column = self.game.first_action()
-    self.send("TURN {} {} {}".format(str(next_turn_number).zfill(3), row, column))
+    self.send("TURN {} {} {}".format(str(next_turn_number).zfill(3), row + 1, column + 1))
 
   def turn(self, current_turn_number, row, column):
     next_turn_number = int(current_turn_number) + 1
@@ -71,7 +71,7 @@ class Client():
     self.game.opponent_action(row, column)
 
     next_turn_number, row, column = self.game.take_action(next_turn_number)
-    self.send("TURN {} {} {}".format(str(next_turn_number).zfill(3), row, column))
+    self.send("TURN {} {} {}".format(str(next_turn_number).zfill(3), row + 1, column + 1))
 
   def print_messages(self):
     print("\n\nMessages:\n\n")
