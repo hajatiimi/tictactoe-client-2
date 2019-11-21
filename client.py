@@ -34,7 +34,7 @@ class Client():
 
   def end_game(self, winner_id):
     self.game_on = False
-    self.send("GAME-WON ACK")
+    self.send("GAME-WON-ACK")
     print("----------")
     print("GAME OVER!")
     print("----------")
