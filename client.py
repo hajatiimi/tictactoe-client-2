@@ -22,8 +22,9 @@ class Client():
 
   def receive(self):
     response = self.socket.recv(1024).decode()
-    print("Received message {}".format(response))
-    self.message_log.append("<- " + response)
+    if response and (not response.isspace()):
+      print("Received message {}".format(response))
+      self.message_log.append("<- " + response)
     response = response.split()
     return response
 
@@ -54,7 +55,7 @@ class Client():
   def game_ready(self, rows, cols, starter_id):
     print("Game ready!")
 
-    self.game = game(rows, cols)
+    self.game = Game(int(rows), int(cols))
     self.send("GAME-READY-ACK")
 
     if starter_id == self.own_id:
@@ -62,7 +63,7 @@ class Client():
 
   def first_turn(self):
     next_turn_number, row, column = self.game.first_action()
-    self.send("TURN {} {} {}".format(srt(next_turn_number).zfill(3), row, column))
+    self.send("TURN {} {} {}".format(str(next_turn_number).zfill(3), row, column))
 
   def turn(self, current_turn_number, row, column):
     next_turn_number = int(current_turn_number) + 1

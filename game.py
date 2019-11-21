@@ -19,7 +19,7 @@ class Game:
 
   def first_action(self):
     self.turn = 1
-    row, col = guess_next_move()
+    row, col = self.guess_next_move()
     return 1, row, col
 
   def take_action(self, turn_s):
@@ -28,7 +28,7 @@ class Game:
     col = ""
 
     if self.turn <= self.final_turn:
-      row, col = guess_next_move()
+      row, col = self.guess_next_move()
 
     return str(turn).zfill(3), row, column
 
