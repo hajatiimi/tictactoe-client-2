@@ -33,4 +33,4 @@ class Game:
     return str(turn).zfill(3), row, column
 
   def opponent_action(self, row, col):
-    self.grid[row][col] = 1
+    self.grid[int(row)-1][int(col)-1] = 1
