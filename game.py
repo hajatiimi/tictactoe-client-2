@@ -30,7 +30,7 @@ class Game:
     if self.turn <= self.final_turn:
       row, col = self.guess_next_move()
 
-    return str(turn).zfill(3), row, column
+    return str(self.turn).zfill(3), row, col
 
   def opponent_action(self, row, col):
     self.grid[int(row)-1][int(col)-1] = 1
