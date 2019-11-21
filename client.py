@@ -39,7 +39,7 @@ class Client():
     print("GAME OVER!")
     print("----------")
 
-    if winner_id == self.own_id:
+    if winner_id == self.own_id or winner_id == "WON":
       print("\nYou won!")
     else:
       print("\nYou lose!")
