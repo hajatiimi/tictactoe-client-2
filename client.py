@@ -65,6 +65,9 @@ class Client():
     next_turn_number, row, column = self.game.first_action()
     self.send("TURN {} {} {}".format(str(next_turn_number).zfill(3), row + 1, column + 1))
 
+  def turn_ack(self, turn_number):
+    None
+
   def turn(self, current_turn_number, row, column):
     next_turn_number = int(current_turn_number) + 1
     self.send("TURN-ACK {}".format(current_turn_number))
@@ -88,7 +91,8 @@ class Client():
         game_on = {
           "GAME-JOIN-ACK": lambda r: self.join_successful(r[1]),
           "GAME-READY": lambda r: self.game_ready(r[1], r[2], r[3]),
-          "TURN-ACK": lambda r: self.turn(r),
+          "TURN": lambda r: self.turn(r[1], r[2], r[3]),
+          "TURN-ACK": lambda r: self.turn_ack(r[1]),
           "GAME-WON": lambda r: self.end_game(r),
         }[response[0]](response)
 
